@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duke.framework.auth.mapper.basic.ResourceMapper" >
+  <resultMap id="BaseResultMap" type="com.duke.framework.auth.domain.basic.Resource" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="router" property="router" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.duke.framework.auth.domain.basic.Resource" >
+    insert into auth_resource (id, parent_id, name, 
+      code, type, status, 
+      router, memo, creater, 
+      create_time, modifier, modify_time
+      )
+    values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{router,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.Resource" >
+    update auth_resource
+    set parent_id = #{parentId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      router = #{router,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, parent_id, name, code, type, status, router, memo, creater, create_time, 
+    modifier, modify_time
+    from auth_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, parent_id, name, code, type, status, router, memo, creater, create_time, 
+    modifier, modify_time
+    from auth_resource
+  </select>
+</mapper>

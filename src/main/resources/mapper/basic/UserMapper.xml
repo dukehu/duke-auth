@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duke.framework.auth.mapper.basic.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.duke.framework.auth.domain.basic.User" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="gender" property="gender" jdbcType="INTEGER" />
+    <result column="real_name" property="realName" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="login_name" property="loginName" jdbcType="VARCHAR" />
+    <result column="login_password" property="loginPassword" jdbcType="VARCHAR" />
+    <result column="login_mobile" property="loginMobile" jdbcType="VARCHAR" />
+    <result column="login_email" property="loginEmail" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_user
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.duke.framework.auth.domain.basic.User" >
+    insert into auth_user (id, gender, real_name, 
+      nick_name, login_name, login_password, 
+      login_mobile, login_email, status, 
+      create_time, modify_time, avatar
+      )
+    values (#{id,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, 
+      #{nickName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, 
+      #{loginMobile,jdbcType=VARCHAR}, #{loginEmail,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.User" >
+    update auth_user
+    set gender = #{gender,jdbcType=INTEGER},
+      real_name = #{realName,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      login_name = #{loginName,jdbcType=VARCHAR},
+      login_password = #{loginPassword,jdbcType=VARCHAR},
+      login_mobile = #{loginMobile,jdbcType=VARCHAR},
+      login_email = #{loginEmail,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      avatar = #{avatar,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, gender, real_name, nick_name, login_name, login_password, login_mobile, 
+    login_email, status, create_time, modify_time, avatar
+    from auth_user
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, gender, real_name, nick_name, login_name, login_password, login_mobile, 
+    login_email, status, create_time, modify_time, avatar
+    from auth_user
+  </select>
+</mapper>

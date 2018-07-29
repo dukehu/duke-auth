@@ -1,0 +1,53 @@
+server:
+  port: 5285
+  context-path: /
+
+spring:
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    url: jdbc:mysql://localhost:3306/duke_auth?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: duke
+    hikari:
+      data-source-properties:
+          cachePrepStmts: true
+          prepStmtCacheSize: 250
+          prepStmtCacheSqlLimit: 2048
+          useServerPrepStmts: true
+
+security:
+  user:
+    name: duke
+    password: duke
+  basic:
+    enabled: false
+  oauth2:
+    resource:
+      filter-order: 3
+
+management:
+  security:
+    enabled: false
+  context-path: /management
+
+logging:
+  file: ./logs/auth.log
+  level:
+    org.springframework.security: debug
+debug: true
+
+duke:
+  swagger:
+    enabled: true #开启swagger,默认为开启
+    title: auth api
+    description: 权限项目服务
+    version:
+    termsOfServiceUrl:
+    license:
+    licenseUrl:
+    basePackage: com.duke.framework.auth
+  sqllog:
+    enabled: true #开启sqllog
+
+mybatis:
+  mapper-locations: classpath*:mapper/**/*Mapper.xml

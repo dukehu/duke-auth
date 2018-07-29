@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duke.framework.auth.mapper.basic.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.duke.framework.auth.domain.basic.Role" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="role_type" property="roleType" jdbcType="INTEGER" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_role
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.duke.framework.auth.domain.basic.Role" >
+    insert into auth_role (id, code, name, 
+      status, role_type, memo, 
+      creater, create_time, modifier, 
+      modify_time)
+    values (#{id,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{roleType,jdbcType=INTEGER}, #{memo,jdbcType=VARCHAR}, 
+      #{creater,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, 
+      #{modifyTime,jdbcType=TIMESTAMP})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.Role" >
+    update auth_role
+    set code = #{code,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      role_type = #{roleType,jdbcType=INTEGER},
+      memo = #{memo,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, code, name, status, role_type, memo, creater, create_time, modifier, modify_time
+    from auth_role
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, code, name, status, role_type, memo, creater, create_time, modifier, modify_time
+    from auth_role
+  </select>
+</mapper>

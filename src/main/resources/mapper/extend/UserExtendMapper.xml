@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duke.framework.auth.mapper.extend.UserExtendMapper">
+    <select id="selectByUserName" resultType="com.duke.framework.auth.domain.extend.AuthUserDetails">
+        select
+            id             as id,
+            gender         as gender,
+            real_name      as realName,
+            nick_name      as nickName,
+            login_name     as loginName,
+            `status`       as userStatus,
+            avatar         as avatar,
+            login_password as loginPassword
+        from auth_user
+        where login_name = #{username, jdbcType=VARCHAR};
+    </select>
+</mapper>

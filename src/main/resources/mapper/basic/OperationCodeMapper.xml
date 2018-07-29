@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duke.framework.auth.mapper.basic.OperationCodeMapper" >
+  <resultMap id="BaseResultMap" type="com.duke.framework.auth.domain.basic.OperationCode" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="service_id" property="serviceId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="memo" property="memo" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="controller" property="controller" jdbcType="VARCHAR" />
+    <result column="request_method" property="requestMethod" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from auth_operation_code
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.duke.framework.auth.domain.basic.OperationCode" >
+    insert into auth_operation_code (id, service_id, name, 
+      code, memo, path, controller, 
+      request_method)
+    values (#{id,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{code,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{controller,jdbcType=VARCHAR}, 
+      #{requestMethod,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.OperationCode" >
+    update auth_operation_code
+    set service_id = #{serviceId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      memo = #{memo,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR},
+      controller = #{controller,jdbcType=VARCHAR},
+      request_method = #{requestMethod,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select id, service_id, name, code, memo, path, controller, request_method
+    from auth_operation_code
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select id, service_id, name, code, memo, path, controller, request_method
+    from auth_operation_code
+  </select>
+</mapper>
