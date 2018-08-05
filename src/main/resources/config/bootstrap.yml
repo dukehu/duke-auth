@@ -2,7 +2,6 @@ spring:
   application:
     name: duke-auth
 
-
 eureka:
   client:
     instance-info-replication-interval-seconds: 10   #实例信息复制间隔

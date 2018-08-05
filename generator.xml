@@ -20,13 +20,13 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.duke.framework.auth.mapper.basic"
                              targetProject="MAVEN"/>
 
-        <table domainObjectName="LoginLock" tableName="auth_login_lock"/>
-        <table domainObjectName="OperationCode" tableName="auth_operation_code"/>
-        <table domainObjectName="Resource" tableName="auth_resource"/>
-        <table domainObjectName="ResourceOperationCodeR" tableName="auth_resource_operation_code_r"/>
-        <table domainObjectName="Role" tableName="auth_role"/>
-        <table domainObjectName="RoleResourceR" tableName="auth_role_resource_r"/>
+        <!--<table domainObjectName="LoginLock" tableName="auth_login_lock"/>-->
+        <!--<table domainObjectName="OperationCode" tableName="auth_operation_code"/>-->
+        <!--<table domainObjectName="Resource" tableName="auth_resource"/>-->
+        <!--<table domainObjectName="ResourceOperationCodeR" tableName="auth_resource_operation_code_r"/>-->
+        <!--<table domainObjectName="Role" tableName="auth_role"/>-->
+        <!--<table domainObjectName="RoleResourceR" tableName="auth_role_resource_r"/>-->
         <table domainObjectName="User" tableName="auth_user"/>
-        <table domainObjectName="UserRoleR" tableName="auth_user_role_r"/>
+        <!--<table domainObjectName="UserRoleR" tableName="auth_user_role_r"/>-->
     </context>
 </generatorConfiguration>

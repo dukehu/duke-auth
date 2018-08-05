@@ -31,12 +31,7 @@ public class AuthUserDetailService implements UserDetailsService {
         if (CollectionUtils.isEmpty(users)) {
             return null;
         }
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
-        SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("role_admin");
-        authorities.add(simpleGrantedAuthority);
         AuthUserDetails authUserDetails = users.get(0);
-        authUserDetails.setAuthorities(authorities);
         return authUserDetails;
     }
 }

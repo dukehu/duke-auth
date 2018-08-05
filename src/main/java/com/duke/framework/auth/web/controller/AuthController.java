@@ -1,26 +1,31 @@
 package com.duke.framework.auth.web.controller;
 
-import com.duke.framework.utils.SecurityUtils;
+import com.duke.framework.auth.domain.extend.AuthUserDetails;
 import com.duke.framework.utils.WebUtils;
 import com.duke.framework.web.Response;
 import com.google.common.collect.Lists;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,6 +40,26 @@ public class AuthController {
     private TokenEndpoint tokenEndpoint;
 
     /**
+     * 退出登陆
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/sign_out", method = RequestMethod.POST)
+    public Response<String> logout() {
+        return Response.ok();
+    }
+
+    /**
+     * 用户注册
+     *
+     * @return String
+     */
+    @RequestMapping(value = "/sign_up", method = RequestMethod.POST)
+    public Response<String> signUp() {
+        return Response.ok();
+    }
+
+    /**
      * 登陆
      *
      * @param username 用户名
@@ -43,8 +68,8 @@ public class AuthController {
      * @param response 响应
      * @return Map
      */
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public Response<OAuth2AccessToken> login(
+    @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
+    public Response<String> signIn(
             @RequestParam(value = "username", required = false) String username,
             @RequestParam(value = "password", required = false) String password,
             HttpServletRequest request,
@@ -62,15 +87,45 @@ public class AuthController {
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity =
                 tokenEndpoint.postAccessToken(usernamePasswordAuthenticationToken, map);
         OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
+        System.out.println(oAuth2AccessToken.getAdditionalInformation());
         WebUtils.addCookie(response, "access_token", oAuth2AccessToken.getValue());
-        return Response.ok(oAuth2AccessToken);
+        WebUtils.addCookie(response, "refresh_token", oAuth2AccessToken.getRefreshToken().getValue());
+        return Response.ok();
     }
 
-    @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public Principal user(Principal user, HttpServletRequest request) {
-        SecurityUtils.getCurrentUserInfo();
-        System.out.println(WebUtils.extract(request, "user_name"));
-        return user;
-    }
+    /**
+     * 网关过来的时候不需要知道当前登陆用户有哪些操作码，
+     * 各个服务过来的时候就得知道有哪些操作码了
+     *
+     * @param serviceId            服务id
+     * @param oAuth2Authentication oAuth2Authentication
+     * @param request              请求
+     * @return Map
+     */
+    @RequestMapping(method = {RequestMethod.GET}, value = {
+            "/user", "/user/{serviceId}"})
+    public Map<String, Object> user(
+            @PathVariable(value = "serviceId", required = false) String serviceId,
+            OAuth2Authentication oAuth2Authentication,
+            HttpServletRequest request) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("user", "1234");
+        Authentication authentication = oAuth2Authentication.getUserAuthentication();
+        AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getPrincipal();
+        if (authentication instanceof UsernamePasswordAuthenticationToken) {
+            map.put("user", authentication);
+            Integer superman = authUserDetails.getSuperman();
+            if (1 == superman) {
+                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                SimpleGrantedAuthority simpleGrantedAuthority3 = new SimpleGrantedAuthority("admin");
+                authorities.add(simpleGrantedAuthority3);
+                map.put("authorities", authorities);
+            } else {
+                if (!ObjectUtils.isEmpty(serviceId)) {
 
+                }
+            }
+        }
+        return map;
+    }
 }

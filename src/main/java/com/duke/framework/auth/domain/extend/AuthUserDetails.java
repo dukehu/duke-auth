@@ -27,6 +27,8 @@ public class AuthUserDetails implements UserDetails {
 
     private String avatar;
 
+    private Integer superman;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public String getUserId() {
@@ -95,6 +97,14 @@ public class AuthUserDetails implements UserDetails {
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public Integer getSuperman() {
+        return superman;
+    }
+
+    public void setSuperman(Integer superman) {
+        this.superman = superman;
     }
 
     @Override

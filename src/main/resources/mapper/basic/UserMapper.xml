@@ -14,6 +14,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
     <result column="avatar" property="avatar" jdbcType="VARCHAR" />
+    <result column="superman" property="superman" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from auth_user
@@ -23,13 +24,13 @@
     insert into auth_user (id, gender, real_name, 
       nick_name, login_name, login_password, 
       login_mobile, login_email, status, 
-      create_time, modify_time, avatar
-      )
+      create_time, modify_time, avatar, 
+      superman)
     values (#{id,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, #{realName,jdbcType=VARCHAR}, 
       #{nickName,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR}, 
       #{loginMobile,jdbcType=VARCHAR}, #{loginEmail,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}
-      )
+      #{createTime,jdbcType=TIMESTAMP}, #{modifyTime,jdbcType=TIMESTAMP}, #{avatar,jdbcType=VARCHAR}, 
+      #{superman,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.User" >
     update auth_user
@@ -43,18 +44,19 @@
       status = #{status,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modify_time = #{modifyTime,jdbcType=TIMESTAMP},
-      avatar = #{avatar,jdbcType=VARCHAR}
+      avatar = #{avatar,jdbcType=VARCHAR},
+      superman = #{superman,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select id, gender, real_name, nick_name, login_name, login_password, login_mobile, 
-    login_email, status, create_time, modify_time, avatar
+    login_email, status, create_time, modify_time, avatar, superman
     from auth_user
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, gender, real_name, nick_name, login_name, login_password, login_mobile, 
-    login_email, status, create_time, modify_time, avatar
+    login_email, status, create_time, modify_time, avatar, superman
     from auth_user
   </select>
 </mapper>

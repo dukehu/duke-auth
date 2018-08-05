@@ -27,6 +27,8 @@ public class User {
 
     private String avatar;
 
+    private Integer superman;
+
     public String getId() {
         return id;
     }
@@ -121,5 +123,13 @@ public class User {
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+
+    public Integer getSuperman() {
+        return superman;
+    }
+
+    public void setSuperman(Integer superman) {
+        this.superman = superman;
     }
 }
