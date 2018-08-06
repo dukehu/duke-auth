@@ -100,6 +100,7 @@ create table auth_user
   create_time          datetime not null,
   modify_time          datetime not null,
   avatar               varchar(50) not null,
+  superman             int not null,
   primary key (id)
 );
 alter table auth_user comment '用户表';
