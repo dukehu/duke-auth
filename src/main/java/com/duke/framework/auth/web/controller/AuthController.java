@@ -87,7 +87,6 @@ public class AuthController {
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity =
                 tokenEndpoint.postAccessToken(usernamePasswordAuthenticationToken, map);
         OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
-        System.out.println(oAuth2AccessToken.getAdditionalInformation());
         WebUtils.addCookie(response, "access_token", oAuth2AccessToken.getValue());
         WebUtils.addCookie(response, "refresh_token", oAuth2AccessToken.getRefreshToken().getValue());
         return Response.ok();
