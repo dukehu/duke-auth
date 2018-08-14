@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.duke.framework.auth.mapper.extend.LoginLockExtendMapper">
+
+    <select id="selectByUserId" resultType="com.duke.framework.auth.domain.basic.LoginLock">
+        select id as id, user_id as userId, lock_date as lockDate, lock_num as lockNum
+        from auth_login_lock
+        where user_id = #{userId, jdbcType=VARCHAR}
+          and lock_date &gt;= #{beginTime,jdbcType=VARCHAR}
+          AND lock_date &lt;= #{endTime,jdbcType=VARCHAR};
+    </select>
+
+    <delete id="deleteByUserId">
+        delete from auth_login_lock where user_id = #{userId, jdbcType=VARCHAR};
+    </delete>
+</mapper>

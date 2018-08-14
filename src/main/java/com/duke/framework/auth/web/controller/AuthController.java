@@ -1,11 +1,11 @@
 package com.duke.framework.auth.web.controller;
 
+import com.duke.framework.auth.config.jwt.JwtToken;
+import com.duke.framework.auth.config.jwt.JwtTokenProvider;
 import com.duke.framework.auth.domain.extend.AuthUserDetails;
 import com.duke.framework.utils.WebUtils;
 import com.duke.framework.web.Response;
 import com.google.common.collect.Lists;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,13 +16,13 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.endpoint.TokenEndpoint;
+import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.util.ObjectUtils;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.security.Principal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -39,13 +39,23 @@ public class AuthController {
     @Autowired
     private TokenEndpoint tokenEndpoint;
 
+    @Autowired
+    private JwtTokenProvider jwtTokenProvider;
+
+    @Autowired
+    private DefaultTokenServices defaultTokenServices;
+
     /**
      * 退出登陆
      *
      * @return String
      */
     @RequestMapping(value = "/sign_out", method = RequestMethod.POST)
-    public Response<String> logout() {
+    public Response<String> logout(HttpServletRequest request,
+                                   HttpServletResponse response) {
+        WebUtils.clear(request, response);
+        String accessToken = WebUtils.extract(request, "access_token");
+        defaultTokenServices.revokeToken(accessToken);
         return Response.ok();
     }
 
@@ -69,7 +79,7 @@ public class AuthController {
      * @return Map
      */
     @RequestMapping(value = "/sign_in", method = RequestMethod.POST)
-    public Response<String> signIn(
+    public Response<JwtToken> signIn(
             @RequestParam(value = "username", required = false) String username,
             @RequestParam(value = "password", required = false) String password,
             HttpServletRequest request,
@@ -78,18 +88,17 @@ public class AuthController {
         Map<String, String> map = new HashMap<>();
         map.put("username", username);
         map.put("password", password);
-        map.put("client_id", "client_2");
+        map.put("client_id", "duke_app");
         map.put("grant_type", "password");
-        map.put("client_secret", "123456");
+        map.put("client_secret", "12345678");
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                = new UsernamePasswordAuthenticationToken("client_2",
+                = new UsernamePasswordAuthenticationToken("duke_app",
                 "", Lists.newArrayList());
         ResponseEntity<OAuth2AccessToken> oAuth2AccessTokenResponseEntity =
                 tokenEndpoint.postAccessToken(usernamePasswordAuthenticationToken, map);
         OAuth2AccessToken oAuth2AccessToken = oAuth2AccessTokenResponseEntity.getBody();
-        WebUtils.addCookie(response, "access_token", oAuth2AccessToken.getValue());
-        WebUtils.addCookie(response, "refresh_token", oAuth2AccessToken.getRefreshToken().getValue());
-        return Response.ok();
+        JwtToken jwtToken = jwtTokenProvider.createJwtToken(request, response, oAuth2AccessToken);
+        return Response.ok(jwtToken);
     }
 
     /**
@@ -110,7 +119,7 @@ public class AuthController {
         Map<String, Object> map = new HashMap<>();
         map.put("user", "1234");
         Authentication authentication = oAuth2Authentication.getUserAuthentication();
-        AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getPrincipal();
+        AuthUserDetails authUserDetails = (AuthUserDetails) authentication.getDetails();
         if (authentication instanceof UsernamePasswordAuthenticationToken) {
             map.put("user", authentication);
             Integer superman = authUserDetails.getSuperman();

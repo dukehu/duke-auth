@@ -23,7 +23,7 @@ public class TestEndpoints {
     }
 
     @GetMapping("/order/{id}")
-    @PreAuthorize("hasRole('role_admin')")
+    @PreAuthorize("hasAuthority ('admin') or hasAuthority ('role_admin')")
     public String getOrder(@PathVariable String id) {
         //for debug
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

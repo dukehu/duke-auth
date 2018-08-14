@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>duke-auth</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>${com.duke.version}</version>
     <packaging>war</packaging>
 
     <parent>
@@ -21,6 +21,21 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>com.duke.framework</groupId>
+            <artifactId>swagger-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.duke.framework</groupId>
+            <artifactId>sqllog-spring-boot-starter</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.duke.framework</groupId>
+            <artifactId>duke-framework-core</artifactId>
+        </dependency>
+
         <!--zuul依赖-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -33,32 +48,23 @@
             <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
 
+        <!-- spring security begin -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
+        <!-- spring security end -->
 
+        <!-- spring security oauth2 begin -->
         <dependency>
             <groupId>org.springframework.security.oauth</groupId>
             <artifactId>spring-security-oauth2</artifactId>
         </dependency>
+        <!-- spring security oauth2 end -->
 
         <dependency>
-            <groupId>com.duke.framework</groupId>
-            <artifactId>swagger-spring-boot-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.duke.framework</groupId>
-            <artifactId>sqllog-spring-boot-starter</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>com.duke.framework</groupId>
-            <artifactId>duke-framework-core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-jwt</artifactId>
         </dependency>
 
         <dependency>
@@ -92,40 +98,33 @@
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
-            <version>2.5.1</version>
         </dependency>
         <!-- 分页 -->
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
-            <version>5.0.1</version>
         </dependency>
 
         <!-- mybatis -->
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis</artifactId>
-            <version>3.4.4</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis</groupId>
             <artifactId>mybatis-spring</artifactId>
-            <version>1.3.1</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-autoconfigure</artifactId>
-            <version>1.3.0</version>
         </dependency>
         <dependency>
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper-spring-boot-starter</artifactId>
-            <version>1.2.0</version>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
-            <version>1.3.0</version>
         </dependency>
     </dependencies>
 

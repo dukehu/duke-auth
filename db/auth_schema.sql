@@ -8,6 +8,7 @@ drop table if exists auth_user;
 drop table if exists auth_user_role_r;
 drop table if exists oauth_access_token;
 drop table if exists oauth_refresh_token;
+drop table if exists oauth_client_details;
 
 create table auth_login_lock
 (
@@ -130,4 +131,19 @@ create table oauth_refresh_token (
   token_id       varchar(255),
   token          blob,
   authentication blob
+);
+
+create table oauth_client_details (
+  `client_id`               varchar(48) not null,
+  `resource_ids`            varchar(256) default null,
+  `client_secret`           varchar(256) default null,
+  `scope`                   varchar(256) default null,
+  `authorized_grant_types`  varchar(256) default null,
+  `web_server_redirect_uri` varchar(256) default null,
+  `authorities`             varchar(256) default null,
+  `access_token_validity`   int(11) default null,
+  `refresh_token_validity`  int(11) default null,
+  `additional_information`  varchar(4096) default null,
+  `autoapprove`             varchar(256) default null,
+  primary key (`client_id`)
 );
