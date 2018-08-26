@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/duke_auth?useUnicode=true&characterEncoding=utf8&useSSL=false
+    username: root
+    password: duke
+
+duke:
+  auth:
+    loginFailureLockTime: 30 # 账号登陆失败锁定时间，单位分钟
+    defaultWrongPasswordTimes: 5 #允许密码错误次数，默认为5
+    cookie:
+      path: /
+      maxAge: 3600
+      domain: 10.0.0.143
