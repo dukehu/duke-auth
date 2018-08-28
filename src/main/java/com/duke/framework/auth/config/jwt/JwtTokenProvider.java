@@ -1,5 +1,6 @@
 package com.duke.framework.auth.config.jwt;
 
+import com.duke.framework.CoreConstants;
 import com.duke.framework.auth.AuthProperties;
 import com.duke.framework.utils.WebUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,11 +32,11 @@ public class JwtTokenProvider {
         String userId = additionalInformation.get("userId").toString();
         String avatar = additionalInformation.get("avatar").toString();
 
-        WebUtils.addCookie(response, "access_token", accessToken, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
-        WebUtils.addCookie(response, "refresh_token", refreshToken, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
-        WebUtils.addCookie(response, "login_name", loginName, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
-        WebUtils.addCookie(response, "user_id", userId, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
-        WebUtils.addCookie(response, "avatar", avatar, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
+        WebUtils.addCookie(response, CoreConstants.ACCESS_TOKEN, accessToken, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
+        WebUtils.addCookie(response, CoreConstants.REFRESH_TOKEN, refreshToken, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
+        WebUtils.addCookie(response, CoreConstants.LOGIN_NAME, loginName, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
+        WebUtils.addCookie(response, CoreConstants.USER_ID, userId, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
+        WebUtils.addCookie(response, CoreConstants.AVATAR, avatar, cookie.getMaxAge(), cookie.getPath(), cookie.getDomain());
 
 
         return new JwtToken(
