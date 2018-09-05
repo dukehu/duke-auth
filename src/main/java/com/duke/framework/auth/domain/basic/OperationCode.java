@@ -1,5 +1,7 @@
 package com.duke.framework.auth.domain.basic;
 
+import java.util.Date;
+
 public class OperationCode {
     private String id;
 
@@ -16,6 +18,16 @@ public class OperationCode {
     private String controller;
 
     private String requestMethod;
+
+    private String url;
+
+    private String creater;
+
+    private Date createrTime;
+
+    private String modifier;
+
+    private Date modifiedTime;
 
     public String getId() {
         return id;
@@ -79,5 +91,45 @@ public class OperationCode {
 
     public void setRequestMethod(String requestMethod) {
         this.requestMethod = requestMethod;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public String getCreater() {
+        return creater;
+    }
+
+    public void setCreater(String creater) {
+        this.creater = creater;
+    }
+
+    public Date getCreaterTime() {
+        return createrTime;
+    }
+
+    public void setCreaterTime(Date createrTime) {
+        this.createrTime = createrTime;
+    }
+
+    public String getModifier() {
+        return modifier;
+    }
+
+    public void setModifier(String modifier) {
+        this.modifier = modifier;
+    }
+
+    public Date getModifiedTime() {
+        return modifiedTime;
+    }
+
+    public void setModifiedTime(Date modifiedTime) {
+        this.modifiedTime = modifiedTime;
     }
 }

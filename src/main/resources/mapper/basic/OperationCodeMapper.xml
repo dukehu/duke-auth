@@ -10,6 +10,10 @@
     <result column="path" property="path" jdbcType="VARCHAR" />
     <result column="controller" property="controller" jdbcType="VARCHAR" />
     <result column="request_method" property="requestMethod" jdbcType="VARCHAR" />
+    <result column="creater" property="creater" jdbcType="VARCHAR" />
+    <result column="creater_time" property="createrTime" jdbcType="TIMESTAMP" />
+    <result column="modifier" property="modifier" jdbcType="VARCHAR" />
+    <result column="modified_time" property="modifiedTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from auth_operation_code
@@ -18,10 +22,12 @@
   <insert id="insert" parameterType="com.duke.framework.auth.domain.basic.OperationCode" >
     insert into auth_operation_code (id, service_id, name, 
       code, memo, path, controller, 
-      request_method)
+      request_method, creater, creater_time, 
+      modifier, modified_time)
     values (#{id,jdbcType=VARCHAR}, #{serviceId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, #{controller,jdbcType=VARCHAR}, 
-      #{requestMethod,jdbcType=VARCHAR})
+      #{requestMethod,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, #{createrTime,jdbcType=TIMESTAMP}, 
+      #{modifier,jdbcType=VARCHAR}, #{modifiedTime,jdbcType=TIMESTAMP})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.OperationCode" >
     update auth_operation_code
@@ -31,16 +37,22 @@
       memo = #{memo,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
       controller = #{controller,jdbcType=VARCHAR},
-      request_method = #{requestMethod,jdbcType=VARCHAR}
+      request_method = #{requestMethod,jdbcType=VARCHAR},
+      creater = #{creater,jdbcType=VARCHAR},
+      creater_time = #{createrTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=VARCHAR},
+      modified_time = #{modifiedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select id, service_id, name, code, memo, path, controller, request_method
+    select id, service_id, name, code, memo, path, controller, request_method, creater, 
+    creater_time, modifier, modified_time
     from auth_operation_code
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select id, service_id, name, code, memo, path, controller, request_method
+    select id, service_id, name, code, memo, path, controller, request_method, creater, 
+    creater_time, modifier, modified_time
     from auth_operation_code
   </select>
 </mapper>

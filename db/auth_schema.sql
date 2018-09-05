@@ -5,6 +5,7 @@ drop table if exists auth_resource_operation_code_r;
 drop table if exists auth_role;
 drop table if exists auth_role_resource_r;
 drop table if exists auth_user;
+drop table if exists auth_service;
 drop table if exists auth_user_role_r;
 drop table if exists oauth_access_token;
 drop table if exists oauth_refresh_token;
@@ -30,6 +31,11 @@ create table auth_operation_code
   path                 varchar(50) not null,
   controller           varchar(50) not null,
   request_method       varchar(10) not null,
+  url                  varchar(50) not null ,
+  creater              varchar(50) not null  ,
+  creater_time         datetime not null ,
+  modifier             varchar(50) not null ,
+  modified_time        datetime not null,
   primary key (id)
 );
 alter table auth_operation_code comment '操作码表';
@@ -40,11 +46,13 @@ create table auth_resource
   parent_id            varchar(50) not null,
   name                 varchar(50) not null,
   code                 varchar(50) not null,
-  type                 int(1) not null comment '栏目
-            按钮',
+  type                 int(1) not null comment '栏目, 按钮, 模块',
   status               int(1) not null,
   router               varchar(50) not null,
+  icon                 varchar(50) not null,
+  sort                 int(11) not null,
   memo                 varchar(50) not null,
+  path_tree            longtext not null,
   creater              varchar(50) not null,
   create_time          datetime not null,
   modifier             varchar(50) not null,
@@ -105,6 +113,15 @@ create table auth_user
   primary key (id)
 );
 alter table auth_user comment '用户表';
+
+create table auth_service
+(
+  id   varchar(50)  not null,
+  name varchar (50) not null,
+  memo varchar (50) not null,
+  primary key (id)
+);
+alter table auth_service comment '服务表';
 
 create table auth_user_role_r
 (

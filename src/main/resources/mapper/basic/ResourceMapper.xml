@@ -14,6 +14,9 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="modifier" property="modifier" jdbcType="VARCHAR" />
     <result column="modify_time" property="modifyTime" jdbcType="TIMESTAMP" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="path_tree" property="pathTree" jdbcType="LONGVARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from auth_resource
@@ -23,12 +26,14 @@
     insert into auth_resource (id, parent_id, name, 
       code, type, status, 
       router, memo, creater, 
-      create_time, modifier, modify_time
+      create_time, modifier, modify_time, 
+      sort, icon, path_tree
       )
     values (#{id,jdbcType=VARCHAR}, #{parentId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
       #{code,jdbcType=VARCHAR}, #{type,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
       #{router,jdbcType=VARCHAR}, #{memo,jdbcType=VARCHAR}, #{creater,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}
+      #{createTime,jdbcType=TIMESTAMP}, #{modifier,jdbcType=VARCHAR}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      #{sort,jdbcType=INTEGER}, #{icon,jdbcType=VARCHAR}, #{pathTree,jdbcType=LONGVARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.duke.framework.auth.domain.basic.Resource" >
@@ -43,18 +48,21 @@
       creater = #{creater,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       modifier = #{modifier,jdbcType=VARCHAR},
-      modify_time = #{modifyTime,jdbcType=TIMESTAMP}
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      sort = #{sort,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      path_tree = #{pathTree,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select id, parent_id, name, code, type, status, router, memo, creater, create_time, 
-    modifier, modify_time
+    modifier, modify_time, sort, icon, path_tree
     from auth_resource
     where id = #{id,jdbcType=VARCHAR}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
     select id, parent_id, name, code, type, status, router, memo, creater, create_time, 
-    modifier, modify_time
+    modifier, modify_time, sort, icon, path_tree
     from auth_resource
   </select>
 </mapper>

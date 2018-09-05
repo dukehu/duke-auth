@@ -27,6 +27,12 @@ public class Resource {
 
     private Date modifyTime;
 
+    private Integer sort;
+
+    private String icon;
+
+    private String pathTree;
+
     public String getId() {
         return id;
     }
@@ -121,5 +127,29 @@ public class Resource {
 
     public void setModifyTime(Date modifyTime) {
         this.modifyTime = modifyTime;
+    }
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getPathTree() {
+        return pathTree;
+    }
+
+    public void setPathTree(String pathTree) {
+        this.pathTree = pathTree;
     }
 }

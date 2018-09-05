@@ -1,5 +1,6 @@
 package com.duke.framework.auth.web.controller;
 
+import com.duke.framework.CoreConstants;
 import com.duke.framework.auth.config.jwt.JwtToken;
 import com.duke.framework.auth.config.jwt.JwtTokenProvider;
 import com.duke.framework.auth.domain.extend.AuthUserDetails;
@@ -56,6 +57,12 @@ public class AuthController {
         WebUtils.clear(request, response);
         String accessToken = WebUtils.extract(request, "access_token");
         defaultTokenServices.revokeToken(accessToken);
+        WebUtils.remove(response, request,
+                CoreConstants.ACCESS_TOKEN,
+                CoreConstants.REFRESH_TOKEN,
+                CoreConstants.AVATAR,
+                CoreConstants.LOGIN_NAME,
+                CoreConstants.USER_ID);
         return Response.ok();
     }
 
