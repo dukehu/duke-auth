@@ -13,6 +13,7 @@ import org.springframework.security.authentication.RememberMeAuthenticationToken
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.ObjectUtils;
 
@@ -49,6 +50,7 @@ public class AuthAuthenticationProvider implements AuthenticationProvider {
             String username = usernamePasswordAuthenticationToken.getName();
 
             if (ObjectUtils.isEmpty(username)) {
+
                 // todo 抛异常，用户名不能为空
             }
 
@@ -60,6 +62,7 @@ public class AuthAuthenticationProvider implements AuthenticationProvider {
 
             if (ObjectUtils.isEmpty(authUserDetails)) {
                 // todo 抛异常，用户不存在
+                throw new UsernameNotFoundException("用户名不存在！");
             }
 
 
