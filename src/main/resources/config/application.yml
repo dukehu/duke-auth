@@ -24,7 +24,6 @@ security:
     resource:
       filter-order: 3
       service-id: duke-auth
-      user-info-uri: http://localhost:5285/user/duke-auth
       prefer-token-info: true
 
 management:

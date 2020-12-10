@@ -12,3 +12,8 @@ duke:
       path: /
       maxAge: 3600
       domain: dukehu.top
+
+security:
+  oauth2:
+    resource:
+      user-info-uri: http://dukehu.top:5285/user/duke-auth
